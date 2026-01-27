@@ -20,12 +20,12 @@
     },
     {
       "id": 1,
-      "title": "Vitamin Eksiklikleri ve Sebepl Olduğu Yan Etkiler",
+      "title": "Vitamin Eksiklikleri ve Sebep Olduğu Yan Etkiler",
       "category": "BESLENME",
       "mainCategory": "saglik-wellness",
       "excerpt": "Vitamin eksikliklerinin vücudunuzda yarattığı etkileri ve çözüm yollarını keşfedin.",
       "image": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=500&h=500&fit=crop",
-      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "content": "Vitamin eksiklikleri pek çok yan etkiye sebep oluyor. Vitamin eksikliği yaşamamak için ise pek çok önlem alınabilir.",
       "featured": true,
       "tags": [
         "vitamin",
@@ -41,7 +41,7 @@
       "mainCategory": "saglik-wellness",
       "excerpt": "Günlük meditasyon pratiği ile zihninizi dinlendirin ve iç huzuru bulun.",
       "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=500&fit=crop",
-      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "content": "Son zamanların en çok tercih edilen aktivitelerinden biri olan meditasyon ile iç huzura ulaşmak çok kolay!",
       "featured": true,
       "tags": [
         "meditasyon",
