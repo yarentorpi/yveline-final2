@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yveline Admin Panel - İçerik & SEO Yönetimi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'League Spartan', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .admin-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .admin-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .panel-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #B60909;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-label .required {
+            color: #B60909;
+        }
+
+        .form-label .char-count {
+            float: right;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'League Spartan', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #B60909;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'League Spartan', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #B60909;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #900707;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* SERP Preview */
+        .serp-preview {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .serp-preview h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .serp-result {
+            font-family: Arial, sans-serif;
+        }
+
+        .serp-url {
+            font-size: 14px;
+            color: #5f6368;
+            margin-bottom: 4px;
+        }
+
+        .serp-title {
+            font-size: 20px;
+            color: #1a0dab;
+            margin-bottom: 4px;
+            cursor: pointer;
+            line-height: 1.3;
+        }
+
+        .serp-title:hover {
+            text-decoration: underline;
+        }
+
+        .serp-description {
+            font-size: 14px;
+            color: #4d5156;
+            line-height: 1.58;
+        }
+
+        /* Content List */
+        .content-list {
+            margin-top: 20px;
+        }
+
+        .content-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .content-item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .content-info h4 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .content-info p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .char-counter.warning {
+            color: #ff9800;
+        }
+
+        .char-counter.danger {
+            color: #f44336;
+        }
+
+        .seo-score {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .seo-score.good {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .seo-score.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .seo-score.poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .tips-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .tips-box h4 {
+            font-size: 14px;
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+
+        .tips-box ul {
+            margin-left: 20px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .tips-box li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 1024px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <div class="admin-header">
+            <h1><i class="fas fa-shield-alt"></i> Yveline Admin Panel</h1>
+            <p>İçerik Yönetimi & SEO Optimizasyonu</p>
+        </div>
+
+        <!-- Alert Messages -->
+        <div id="alertSuccess" class="alert alert-success">
+            <i class="fas fa-check-circle"></i> <span id="successMessage"></span>
+        </div>
+        <div id="alertError" class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i> <span id="errorMessage"></span>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="admin-grid">
+            <!-- Left Column: Content Form -->
+            <div class="panel-section">
+                <h2 class="section-title">
+                    <i class="fas fa-plus-circle"></i> Yeni İçerik Ekle
+                </h2>
+
+                <form id="contentForm">
+                    <!-- Basic Info -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            İçerik Başlığı <span class="required">*</span>
+                            <span class="char-count" id="titleCount">0/60</span>
+                        </label>
+                        <input type="text" id="title" class="form-input" maxlength="60" required 
+                               placeholder="Örn: Sabah Yoga Rutini ile Güne Enerjik Başlayın">
+                        <div class="char-counter" id="titleCounter"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Ana Kategori <span class="required">*</span>
+                        </label>
+                        <select id="mainCategory" class="form-select" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="saglik-wellness">Sağlık + Wellness</option>
+                            <option value="yasam-stil">Yaşam + Stil</option>
+                            <option value="ev-eglence">Ev + Eğlence</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Alt Kategori <span class="required">*</span>
+                        </label>
+                        <select id="category" class="form-select" required disabled>
+                            <option value="">Önce ana kategori seçin...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Kısa Açıklama / Excerpt <span class="required">*</span>
+                            <span class="char-count" id="excerptCount">0/155</span>
+                        </label>
+                        <textarea id="excerpt" class="form-textarea" maxlength="155" required 
+                                  placeholder="Kart üzerinde görünecek kısa açıklama (100-155 karakter)"></textarea>
+                        <div class="char-counter" id="excerptCounter"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Görsel URL <span class="required">*</span>
+                        </label>
+                        <input type="url" id="image" class="form-input" required 
+                               placeholder="https://images.unsplash.com/photo-xxxxx?w=500&h=500&fit=crop">
+                        <div class="tips-box">
+                            <h4><i class="fas fa-lightbulb"></i> Görsel İpuçları:</h4>
+                            <ul>
+                                <li>Unsplash.com'dan ücretsiz görseller kullanabilirsiniz</li>
+                                <li>URL sonuna <code>?w=500&h=500&fit=crop</code> ekleyin</li>
+                                <li>Kare format (500x500px) tercih edin</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="featured">
+                            <label class="form-label" style="margin: 0;">
+                                <i class="fas fa-star"></i> Öne Çıkan İçerik (Carousel'de görünür)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Etiketler (virgülle ayırın)
+                        </label>
+                        <input type="text" id="tags" class="form-input" 
+                               placeholder="yoga, sağlık, wellness">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            İçerik Metni <span class="required">*</span>
+                        </label>
+                        <textarea id="content" class="form-textarea" required 
+                                  style="min-height: 300px;"
+                                  placeholder="İçeriğinizi buraya yazın. Paragraflar otomatik algılanacak.
+
+Örnek:
+Sabah yoga rutini ile güne enerjik başlamak çok kolay. Her sabah sadece 15 dakika ayırarak hem bedeninizi hem de zihninizi dinlendirebilirsiniz.
+
+Yoga, binlerce yıldır uygulanagelen bir disiplindir. Modern hayatın stresli temposunda yoga, bize ihtiyacımız olan huzuru ve dengeyi sağlar.
+
+İşte sabah yoga rutininin faydaları:
+- Enerji seviyenizi artırır
+- Odaklanmanızı güçlendirir
+- Esnekliğinizi geliştirir
+- Stresi azaltır"></textarea>
+                        <div class="tips-box">
+                            <h4><i class="fas fa-pen"></i> İçerik Yazma İpuçları:</h4>
+                            <ul>
+                                <li>Her paragraf için Enter'a basın</li>
+                                <li>Minimum 300 kelime önerilir (SEO için)</li>
+                                <li>Alt başlıklar kullanın (## işareti ile)</li>
+                                <li>Liste oluşturmak için - veya 1. kullanın</li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Column: SEO Settings -->
+            <div class="panel-section">
+                <h2 class="section-title">
+                    <i class="fas fa-search"></i> SEO Ayarları
+                    <span id="seoScore" class="seo-score medium">Orta</span>
+                </h2>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        SEO Title <span class="required">*</span>
+                        <span class="char-count" id="seoTitleCount">0/60</span>
+                    </label>
+                    <input type="text" id="seoTitle" class="form-input" maxlength="60" 
+                           placeholder="Google'da görünecek başlık (50-60 karakter ideal)">
+                    <div class="char-counter" id="seoTitleCounter"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Meta Description <span class="required">*</span>
+                        <span class="char-count" id="metaDescCount">0/160</span>
+                    </label>
+                    <textarea id="metaDescription" class="form-textarea" maxlength="160" 
+                              placeholder="Google'da görünecek açıklama (150-160 karakter ideal)"></textarea>
+                    <div class="char-counter" id="metaDescCounter"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        URL Slug <span class="required">*</span>
+                    </label>
+                    <input type="text" id="slug" class="form-input" 
+                           placeholder="sabah-yoga-rutini-enerji">
+                    <small style="color: #666;">URL: yveline.com/icerik/<span id="slugPreview">...</span></small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        Focus Keyword (Odak Anahtar Kelime)
+                    </label>
+                    <input type="text" id="focusKeyword" class="form-input" 
+                           placeholder="Örn: sabah yoga">
+                </div>
+
+                <!-- Google SERP Preview -->
+                <div class="serp-preview">
+                    <h3><i class="fab fa-google"></i> Google SERP Önizleme</h3>
+                    <div class="serp-result">
+                        <div class="serp-url">yveline.com › icerik › <span id="serpSlug">...</span></div>
+                        <div class="serp-title" id="serpTitle">Başlık buraya gelecek...</div>
+                        <div class="serp-description" id="serpDescription">Meta description buraya gelecek...</div>
+                    </div>
+                </div>
+
+                <div class="tips-box" style="margin-top: 20px;">
+                    <h4><i class="fas fa-chart-line"></i> SEO İpuçları:</h4>
+                    <ul>
+                        <li><strong>Title:</strong> 50-60 karakter, anahtar kelime başta</li>
+                        <li><strong>Description:</strong> 150-160 karakter, harekete geçirici</li>
+                        <li><strong>Slug:</strong> Kısa, anlamlı, tire ile ayrılmış</li>
+                        <li><strong>Keyword:</strong> İçeriğe doğal şekilde yayılmalı</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Full Width: Actions & Content List -->
+            <div class="panel-section full-width">
+                <div class="btn-actions">
+                    <button type="button" class="btn btn-primary" onclick="saveContent()">
+                        <i class="fas fa-save"></i> İçeriği Kaydet
+                    </button>
+                    <button type="button" class="btn btn-success" onclick="downloadJSON()">
+                        <i class="fas fa-download"></i> JSON İndir
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fas fa-redo"></i> Formu Sıfırla
+                    </button>
+                </div>
+
+                <div style="margin-top: 40px;">
+                    <h2 class="section-title">
+                        <i class="fas fa-list"></i> Mevcut İçerikler
+                    </h2>
+                    <div id="contentList" class="content-list">
+                        <!-- Dynamically loaded -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

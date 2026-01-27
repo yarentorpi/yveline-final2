@@ -1,0 +1,141 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "title": "Vitamin Eksiklikleri ve Sebepl Olduğu Yan Etkiler",
+      "category": "BESLENME",
+      "mainCategory": "saglik-wellness",
+      "excerpt": "Vitamin eksikliklerinin vücudunuzda yarattığı etkileri ve çözüm yollarını keşfedin.",
+      "image": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": true,
+      "tags": ["vitamin", "sağlık", "beslenme"],
+      "date": "2026-01-27"
+    },
+    {
+      "id": 2,
+      "title": "Meditasyon ile İç Huzura Ulaşmanın 7 Yolu",
+      "category": "YOGA",
+      "mainCategory": "saglik-wellness",
+      "excerpt": "Günlük meditasyon pratiği ile zihninizi dinlendirin ve iç huzuru bulun.",
+      "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": true,
+      "tags": ["meditasyon", "yoga", "wellness"],
+      "date": "2026-01-26"
+    },
+    {
+      "id": 3,
+      "title": "Evde Yapabileceğiniz 15 Dakikalık HIIT Antrenmanı",
+      "category": "FITNESS",
+      "mainCategory": "saglik-wellness",
+      "excerpt": "Kısa sürede maksimum kalori yakmanın en etkili yolu: HIIT antrenmanı.",
+      "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": true,
+      "tags": ["fitness", "antrenman", "spor"],
+      "date": "2026-01-25"
+    },
+    {
+      "id": 4,
+      "title": "Doğru Kot Pantolonu Seçmek İçin İpuçları",
+      "category": "MODA",
+      "mainCategory": "yasam-stil",
+      "excerpt": "Vücut tipinize en uygun kot pantolonu nasıl seçersiniz?",
+      "image": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["moda", "stil", "kot"],
+      "date": "2026-01-24"
+    },
+    {
+      "id": 5,
+      "title": "Yaz Tatilinde Kesinlikle Yanınıza Almanız Gereken 5 Şey",
+      "category": "SEYAHAT",
+      "mainCategory": "yasam-stil",
+      "excerpt": "Tatil bavulunuzda mutlaka olması gereken vazgeçilmez ürünler.",
+      "image": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["seyahat", "tatil", "öneriler"],
+      "date": "2026-01-23"
+    },
+    {
+      "id": 6,
+      "title": "Güneş Gözlüğü Seçiminizle Tarzınızı Yansıtın",
+      "category": "AKSESUAR",
+      "mainCategory": "yasam-stil",
+      "excerpt": "Yüz şeklinize ve tarzınıza uygun güneş gözlüğü nasıl seçilir?",
+      "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["aksesuar", "güneş gözlüğü", "moda"],
+      "date": "2026-01-22"
+    },
+    {
+      "id": 7,
+      "title": "Evinizin Atmosferini Değiştirecek Dekor Fikirleri",
+      "category": "DEKORASYON",
+      "mainCategory": "ev-eglence",
+      "excerpt": "Küçük dokunuşlarla evinize yeni bir hava katın.",
+      "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["dekorasyon", "ev", "tasarım"],
+      "date": "2026-01-21"
+    },
+    {
+      "id": 8,
+      "title": "Omega 3 Deposu Somonu Pişirmenin 5 Pratik Yolu",
+      "category": "TARİFLER",
+      "mainCategory": "ev-eglence",
+      "excerpt": "Hem lezzetli hem sağlıklı: Somon balığı tarifleri.",
+      "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["yemek", "tarif", "somon"],
+      "date": "2026-01-20"
+    },
+    {
+      "id": 9,
+      "title": "Evde Eğlenmek İçin Yapabileceğiniz Aktiviteler",
+      "category": "EĞLENCE",
+      "mainCategory": "ev-eglence",
+      "excerpt": "Evde geçireceğiniz keyifli zamanlar için yaratıcı fikirler.",
+      "image": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["eğlence", "aktivite", "aile"],
+      "date": "2026-01-19"
+    },
+    {
+      "id": 10,
+      "title": "Dengeli Beslenmenin Sırları",
+      "category": "BESLENME",
+      "mainCategory": "saglik-wellness",
+      "excerpt": "Sağlıklı yaşamın temel taşı: Dengeli ve bilinçli beslenme.",
+      "image": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&h=500&fit=crop",
+      "content": "Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna...",
+      "featured": false,
+      "tags": ["beslenme", "sağlık", "diyet"],
+      "date": "2026-01-18"
+    }
+  ],
+  "categories": {
+    "saglik-wellness": {
+      "name": "SAĞLIK + WELLNESS",
+      "slug": "saglik-wellness",
+      "subcategories": ["BESLENME", "FITNESS", "YOGA", "MENTAL SAĞLIK"]
+    },
+    "yasam-stil": {
+      "name": "YAŞAM + STİL",
+      "slug": "yasam-stil",
+      "subcategories": ["MODA", "SEYAHAT", "AKSESUAR", "GÜZELLIK"]
+    },
+    "ev-eglence": {
+      "name": "EV + EĞLENCE",
+      "slug": "ev-eglence",
+      "subcategories": ["DEKORASYON", "EĞLENCE", "TARİFLER", "DIY"]
+    }
+  }
+}
