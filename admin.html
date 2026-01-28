@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Quill Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -468,24 +470,14 @@
                         <label class="form-label">
                             İçerik Metni <span class="required">*</span>
                         </label>
-                        <textarea id="content" class="form-textarea" required 
-                                  style="min-height: 300px;"
-                                  placeholder="İçeriğinizi buraya yazın. Paragraflar otomatik algılanacak.
-
-Örnek:
-Sabah yoga rutini ile güne enerjik başlamak çok kolay. Her sabah sadece 15 dakika ayırarak hem bedeninizi hem de zihninizi dinlendirebilirsiniz.
-
-Yoga, binlerce yıldır uygulanagelen bir disiplindir. Modern hayatın stresli temposunda yoga, bize ihtiyacımız olan huzuru ve dengeyi sağlar.
-
-İşte sabah yoga rutininin faydaları:
-- Enerji seviyenizi artırır
-- Odaklanmanızı güçlendirir
-- Esnekliğinizi geliştirir
-- Stresi azaltır"></textarea>
+                        <!-- Quill Editor Container -->
+                        <div id="content-editor" style="min-height: 300px; background: white;"></div>
+                        <!-- Hidden textarea to store content -->
+                        <textarea id="content" class="form-textarea" required style="display: none;"></textarea>
                         <div class="tips-box">
                             <h4><i class="fas fa-pen"></i> İçerik Yazma İpuçları:</h4>
                             <ul>
-                                <li>Her paragraf için Enter'a basın</li>
+                                <li><strong>Toolbar'ı kullanın:</strong> Bold, italic, başlıklar, listeler</li>
                                 <li>Minimum 300 kelime önerilir (SEO için)</li>
                                 <li>Alt başlıklar kullanın (## işareti ile)</li>
                                 <li>Liste oluşturmak için - veya 1. kullanın</li>
@@ -586,6 +578,8 @@ Yoga, binlerce yıldır uygulanagelen bir disiplindir. Modern hayatın stresli t
         </div>
     </div>
 
+    <!-- Quill Rich Text Editor -->
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="admin-script.js"></script>
 </body>
 </html>

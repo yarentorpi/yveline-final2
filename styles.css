@@ -1285,3 +1285,34 @@ body {
         gap: 32px;
     }
 }
+
+/* Quill Editor Styling */
+.ql-container {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 16px;
+}
+
+.ql-editor {
+    min-height: 300px;
+    padding: 20px;
+}
+
+.ql-editor p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.ql-editor h1, .ql-editor h2, .ql-editor h3 {
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.ql-editor ul, .ql-editor ol {
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+.ql-editor strong {
+    font-weight: 600;
+}

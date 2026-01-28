@@ -1,3 +1,77 @@
+// Load articles from localStorage (admin panel) or fallback to JSON
+async function loadArticles() {
+    try {
+        // First try localStorage (if admin added content)
+        const localData = localStorage.getItem('yveline-articles');
+        if (localData) {
+            const data = JSON.parse(localData);
+            renderHomepageArticles(data.articles);
+            console.log('✅ İçerikler admin panelinden yüklendi!');
+            return;
+        }
+        
+        // Fallback to JSON file
+        const response = await fetch('articles-data.json');
+        const data = await response.json();
+        renderHomepageArticles(data.articles);
+        console.log('📄 İçerikler JSON dosyasından yüklendi');
+    } catch (error) {
+        console.error('İçerik yükleme hatası:', error);
+    }
+}
+
+// Render articles on homepage
+function renderHomepageArticles(articles) {
+    // Get featured articles (for hero carousel if needed)
+    const featured = articles.filter(a => a.featured).slice(0, 3);
+    
+    // Get articles by category
+    const saglikArticles = articles.filter(a => a.mainCategory === 'saglik-wellness').slice(0, 3);
+    const fitnessArticles = articles.filter(a => a.mainCategory === 'saglik-wellness' && a.category === 'FITNESS').slice(0, 3);
+    
+    // Render SAĞLIK section
+    const saglikContainer = document.querySelector('.section-content[data-section="saglik"]');
+    if (saglikContainer && saglikArticles.length > 0) {
+        saglikContainer.innerHTML = saglikArticles.map(article => createArticleCard(article)).join('');
+    }
+    
+    // Render FITNESS section
+    const fitnessContainer = document.querySelector('.section-content[data-section="fitness"]');
+    if (fitnessContainer && fitnessArticles.length > 0) {
+        fitnessContainer.innerHTML = fitnessArticles.map(article => createArticleCard(article)).join('');
+    }
+}
+
+// Create article card HTML
+function createArticleCard(article) {
+    return `
+        <div class="article-card">
+            <div class="article-image">
+                <img src="${article.image}" alt="${article.title}">
+            </div>
+            <div class="article-content">
+                <span class="category-badge">${article.category}</span>
+                <h3>${article.title}</h3>
+                <p>${article.excerpt}</p>
+                <div class="article-footer">
+                    <button class="read-more-btn" onclick="window.location.href='article.html?id=${article.id}'">
+                        <span>Devamını Gör</span>
+                        <span class="arrow-icon"></span>
+                    </button>
+                    <div class="article-actions">
+                        <button class="icon-btn heart-btn" onclick="toggleLike(this)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="icon-btn bookmark-btn" onclick="toggleBookmark(this)">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // Toggle Like functionality
 function toggleLike(button) {
     button.classList.toggle('active');
@@ -90,6 +164,9 @@ function loadSavedStates() {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Load articles from admin or JSON
+    loadArticles();
+    
     // Load saved states
     loadSavedStates();
     

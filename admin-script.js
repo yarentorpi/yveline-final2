@@ -1,4 +1,29 @@
 // Admin Panel Script
+
+// Initialize Quill Rich Text Editor
+let quill;
+function initQuillEditor() {
+    quill = new Quill('#content-editor', {
+        theme: 'snow',
+        placeholder: 'İçeriğinizi buraya yazın...',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline'],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                [{ 'align': [] }],
+                ['link'],
+                ['clean']
+            ]
+        }
+    });
+    
+    // Sync Quill content to hidden textarea
+    quill.on('text-change', function() {
+        document.getElementById('content').value = quill.root.innerHTML;
+    });
+}
+
 let articlesData = {
     articles: [],
     categories: {
@@ -245,9 +270,16 @@ function saveContent() {
     // Add to articles
     articlesData.articles.unshift(newArticle); // Add to beginning (newest first)
     
+    // Save to localStorage for homepage
+    localStorage.setItem('yveline-articles', JSON.stringify(articlesData));
+    
     // Update UI
     renderContentList();
-    showAlert('success', `İçerik başarıyla eklendi! (ID: ${newArticle.id}) - Şimdi JSON'u indirin.`);
+    showAlert('success', `✅ İçerik başarıyla eklendi ve ana sayfaya aktarıldı! (ID: ${newArticle.id})`);
+    
+    // Clear form
+    document.getElementById('contentForm').reset();
+    quill.setContents([]); // Clear Quill editor
     
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -462,6 +494,7 @@ function showAlert(type, message) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+    initQuillEditor(); // Initialize rich text editor
     loadData();
     setupCharCounters();
     updateSERPPreview();
