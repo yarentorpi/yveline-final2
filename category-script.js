@@ -195,6 +195,7 @@ function openArticleDetailFromData(article) {
         document.body.appendChild(detailPage);
     }
     
+    // Use article content if available, otherwise use sample
     const sampleContent = `
         <p>Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna. Lectus vel pellentesque eget et donec. Suspendisse aliquam morbi nibh nec enim sagittis venenatis enim. Id a adipiscing mi vel eget in in. Pretium vel consequat purus semper. Eros magna massa sed placerat auctor montes vulputate nullam tincidunt. Egestas eu convallis aliquet ornare id. Mattis dignissim blandit ullamcorper nibh. Donec odio dui nullam donec feugiat est. Pulvinar egestas ac pellentesque elit auctor semper. Eget ut placerat ornare blandit luctus.</p>
         
@@ -208,6 +209,8 @@ function openArticleDetailFromData(article) {
         
         <p>Porta in aliquet adipiscing commodo et cursus felis aliquet. Risus nulla egestas ultricies tincidunt dolor tempor. Hendrerit mattis pharetra aliquet pellentesque. At arcu rhoncus blandit nunc et cursus in sed. Suspendisse etiam nullam vestibulum sed pulvinar aliquam blandit. Faucibus sit sollicitudin gravida elit.</p>
     `;
+    
+    const contentToShow = article.content || sampleContent;
     
     detailPage.innerHTML = `
         <div class="article-detail-container">
@@ -233,7 +236,7 @@ function openArticleDetailFromData(article) {
             </div>
             
             <div class="article-detail-content">
-                ${sampleContent}
+                ${contentToShow}
             </div>
         </div>
     `;

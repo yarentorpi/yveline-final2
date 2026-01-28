@@ -240,6 +240,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Load articles data for content
+    let articlesData = null;
+    async function loadArticlesData() {
+        try {
+            const response = await fetch('articles-data.json');
+            articlesData = await response.json();
+        } catch (error) {
+            console.log('Articles data not found, using placeholder content');
+        }
+    }
+    loadArticlesData();
+    
     // Function to open article detail page
     function openArticleDetail(articleCard, index) {
         // Close all mega menus first
@@ -257,6 +269,17 @@ document.addEventListener('DOMContentLoaded', function() {
                        'Wellness ve sağlıklı yaşam hakkında detaylı bilgiler içeren bu makaleyi keşfedin.';
         const image = articleCard.querySelector('img').src;
         
+        // Try to find matching article in data
+        let articleContent = null;
+        if (articlesData && articlesData.articles) {
+            const matchedArticle = articlesData.articles.find(article => 
+                article.title === title || article.image === image
+            );
+            if (matchedArticle && matchedArticle.content) {
+                articleContent = matchedArticle.content;
+            }
+        }
+        
         // Create detail page if it doesn't exist
         let detailPage = document.querySelector('.article-detail-page');
         if (!detailPage) {
@@ -265,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.appendChild(detailPage);
         }
         
-        // Sample long content for demonstration - matches Figma lorem ipsum length
+        // Sample long content for demonstration - only used if no real content found
         const sampleContent = `
             <p>Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna. Lectus vel pellentesque eget et donec. Suspendisse aliquam morbi nibh nec enim sagittis venenatis enim. Id a adipiscing mi vel eget in in. Pretium vel consequat purus semper. Eros magna massa sed placerat auctor montes vulputate nullam tincidunt. Egestas eu convallis aliquet ornare id. Mattis dignissim blandit ullamcorper nibh. Donec odio dui nullam donec feugiat est. Pulvinar egestas ac pellentesque elit auctor semper. Eget ut placerat ornare blandit luctus.</p>
             
@@ -279,6 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <p>Porta in aliquet adipiscing commodo et cursus felis aliquet. Risus nulla egestas ultricies tincidunt dolor tempor. Hendrerit mattis pharetra aliquet pellentesque. At arcu rhoncus blandit nunc et cursus in sed. Suspendisse etiam nullam vestibulum sed pulvinar aliquam blandit. Faucibus sit sollicitudin gravida elit.</p>
         `;
+        
+        const contentToShow = articleContent || sampleContent;
         
         detailPage.innerHTML = `
             <div class="article-detail-container">
@@ -304,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 
                 <div class="article-detail-content">
-                    ${sampleContent}
+                    ${contentToShow}
                 </div>
             </div>
         `;
