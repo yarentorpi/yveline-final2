@@ -1405,3 +1405,65 @@ body {
 .ql-editor strong {
     font-weight: 600;
 }
+
+/* Article Page Styles */
+.article-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0;
+    margin-top: 112px;
+    min-height: calc(100vh - 112px);
+}
+
+.loading-message,
+.error-message {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.error-message h2 {
+    font-family: 'League Spartan';
+    font-weight: 500;
+    font-size: 32px;
+    color: #000000;
+    margin-bottom: 16px;
+}
+
+.error-message p {
+    font-family: 'League Spartan';
+    font-weight: 400;
+    font-size: 18px;
+    color: #535252;
+    margin-bottom: 32px;
+}
+
+.back-home-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #000000;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'League Spartan';
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.back-home-btn:hover {
+    background: #333333;
+    transform: translateY(-2px);
+}
+
+.article-category-badge {
+    display: inline-block;
+    font-family: 'League Spartan';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #535252;
+    margin-bottom: 16px;
+}
+
