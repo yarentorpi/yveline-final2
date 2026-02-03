@@ -128,12 +128,11 @@ body {
 .mega-menu {
     /* Full screen fixed overlay */
     position: fixed;
-    top: 0;
+    top: 112px; /* Header height'ı daha doğru hesapladım */
     left: 0;
     right: 0;
-    bottom: 0;
     width: 100vw;
-    height: 100vh;
+    max-height: calc(100vh - 112px);
     
     /* SOLID background */
     background: #F7F4EF;
@@ -144,8 +143,9 @@ body {
     /* Stacking order */
     z-index: 1500;
     
-    /* Space for fixed header: 51px padding + 100px logo + 31px navbar = ~182px */
-    padding-top: 182px;
+    /* Padding ayarı */
+    padding: 60px 0;
+    overflow-y: auto;
     
     /* Ensure no transparency */
     opacity: 1;
@@ -170,24 +170,28 @@ body {
 .mega-menu-content {
     position: relative;
     width: 100%;
-    max-width: 1440px;
-    height: auto;
+    max-width: 1344px; /* 1440px - 96px padding (48px her yan) */
+    min-height: 400px;
     margin: 0 auto;
-    padding: 0;
+    padding: 0 48px;
     background: transparent;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
 .mega-menu-categories {
-    position: absolute;
-    left: 102px;
-    top: 53px;
+    position: relative;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    padding: 0px;
+    padding: 0;
     gap: 12px;
-    width: 103px;
+    min-width: 120px;
+    flex-shrink: 0;
     z-index: 10;
 }
 
@@ -1244,8 +1248,92 @@ body {
 
 .articles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 48px 32px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    width: 100%;
+}
+
+/* Category page için özel article-card stilleri */
+.articles-grid .article-card {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.articles-grid .article-card:hover {
+    transform: translateY(-4px);
+}
+
+.articles-grid .article-image {
+    width: 100%;
+    height: 320px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.articles-grid .article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.articles-grid .article-icons {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+.articles-grid .article-text {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+.articles-grid .article-tag {
+    font-family: 'League Spartan';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #535252;
+}
+
+.articles-grid .article-text h3 {
+    font-family: 'League Spartan';
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: #000000;
+    margin: 0;
+    max-width: 100%;
+}
+
+.articles-grid .article-description {
+    font-family: 'League Spartan';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #535252;
+    margin: 0;
+    max-width: 100%;
+    flex: 1;
+}
+
+.articles-grid .read-more-btn {
+    align-self: flex-start;
+    margin-top: auto;
 }
 
 .no-articles {
@@ -1260,7 +1348,8 @@ body {
 /* Responsive adjustments for category page */
 @media (max-width: 1200px) {
     .articles-grid {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
     }
 }
 

@@ -4,8 +4,18 @@ let articlesData = null;
 // Load articles data
 async function loadArticlesData() {
     try {
+        // First try localStorage (if admin added content)
+        const localData = localStorage.getItem('yveline-articles');
+        if (localData) {
+            articlesData = JSON.parse(localData);
+            console.log('✅ İçerikler admin panelinden yüklendi!');
+            return articlesData;
+        }
+        
+        // Fallback to JSON file
         const response = await fetch('articles-data.json');
         articlesData = await response.json();
+        console.log('📄 İçerikler JSON dosyasından yüklendi');
         return articlesData;
     } catch (error) {
         console.error('Error loading articles:', error);
@@ -195,22 +205,23 @@ function openArticleDetailFromData(article) {
         document.body.appendChild(detailPage);
     }
     
-    // Use article content if available, otherwise use sample
-    const sampleContent = `
-        <p>Lorem ipsum dolor sit amet consectetur. Sit nibh enim suspendisse euismod urna. Lectus vel pellentesque eget et donec. Suspendisse aliquam morbi nibh nec enim sagittis venenatis enim. Id a adipiscing mi vel eget in in. Pretium vel consequat purus semper. Eros magna massa sed placerat auctor montes vulputate nullam tincidunt. Egestas eu convallis aliquet ornare id. Mattis dignissim blandit ullamcorper nibh. Donec odio dui nullam donec feugiat est. Pulvinar egestas ac pellentesque elit auctor semper. Eget ut placerat ornare blandit luctus.</p>
-        
-        <p>Est ut faucibus nunc vulputate hendrerit maecenas viverra. Magna quisque a sed at dignissim. Lectus pretium elementum pharetra viverra dictumst. Cursus laoreet sed amet id amet. Nunc tincidunt lectus pretium volutpat etiam. Nisl eu a scelerisque fringilla nam id. Volutpat elit massa risus mattis rhoncus. Eu diam purus est ornare volutpat varius. Egestas ullamcorper est quam non integer curabitur egestas in bibendum.</p>
-        
-        <p>Porta viverra vestibulum at venenatis. Eleifend ultrices imperdiet sagittis amet netus adipiscing mattis. Quis feugiat felis ultrices ut ante mi pretium. Euismod mauris mi in at non proin. Dignissim purus massa in et. Nulla interdum eget ipsum nullam varius at tincidunt sagittis. Tortor duis a duis semper nec. Ac proin nunc ac placerat et volutpat nisl. Volutpat commodo tristique elit fermentum et posuere duis. In volutpat ornare ornare enim.</p>
-        
-        <p>Sed ac consequat in ac. Neque viverra rhoncus eu commodo sit sed tortor. Arcu pretium commodo sit sit. Mauris id a nulla pellentesque dolor aliquam elit magnis duis. Varius dui viverra nulla hac quis vestibulum sed neque a. Non ultrices phasellus mi condimentum vitae elit ac nec nec. Ultrices sed et elit quisque faucibus faucibus. Id ut massa erat libero lorem rhoncus rhoncus.</p>
-        
-        <p>Nulla metus praesent enim purus non non dui pellentesque morbi. Dictum mattis risus nec morbi gravida. Nibh amet consectetur tristique vitae amet eu euismod. Quis vitae iaculis purus in proin sit adipiscing est. Maecenas scelerisque bibendum consectetur aliquam adipiscing dignissim duis arcu. Amet quis neque a ornare. Ultricies tellus nibh maecenas cras. Massa varius nisi morbi cum consectetur faucibus.</p>
-        
-        <p>Porta in aliquet adipiscing commodo et cursus felis aliquet. Risus nulla egestas ultricies tincidunt dolor tempor. Hendrerit mattis pharetra aliquet pellentesque. At arcu rhoncus blandit nunc et cursus in sed. Suspendisse etiam nullam vestibulum sed pulvinar aliquam blandit. Faucibus sit sollicitudin gravida elit.</p>
-    `;
-    
-    const contentToShow = article.content || sampleContent;
+    // Check if article has real content
+    let contentToShow = '';
+    if (article.content && article.content.trim() !== '') {
+        contentToShow = article.content;
+    } else {
+        // If no content, show a message instead of lorem ipsum
+        contentToShow = `
+            <div style="text-align: center; padding: 40px 20px;">
+                <p style="font-size: 18px; color: #666; margin-bottom: 20px;">
+                    Bu makale için henüz içerik eklenmemiş.
+                </p>
+                <p style="font-size: 16px; color: #999;">
+                    Admin panelinden içerik ekleyebilirsiniz.
+                </p>
+            </div>
+        `;
+    }
     
     detailPage.innerHTML = `
         <div class="article-detail-container">
