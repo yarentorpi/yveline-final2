@@ -50,22 +50,22 @@ function createArticleCard(article) {
                 <img src="${article.image}" alt="${article.title}">
             </div>
             <div class="article-content">
-                <span class="category-badge">${article.category}</span>
-                <h3>${article.title}</h3>
-                <p>${article.excerpt}</p>
-                <div class="article-footer">
+                <div class="article-icons">
+                    <button class="icon-btn heart-btn" onclick="toggleLike(this); event.stopPropagation();">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="icon-btn bookmark-btn" onclick="toggleBookmark(this); event.stopPropagation();">
+                        <i class="far fa-bookmark"></i>
+                    </button>
+                </div>
+                <div class="article-text">
+                    <span class="category-badge">${article.category}</span>
+                    <h3>${article.title}</h3>
+                    <p>${article.excerpt}</p>
                     <button class="read-more-btn" onclick="window.location.href='article.html?id=${article.id}'">
                         <span>Devamını Gör</span>
                         <span class="arrow-icon"></span>
                     </button>
-                    <div class="article-actions">
-                        <button class="icon-btn heart-btn" onclick="toggleLike(this)">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="icon-btn bookmark-btn" onclick="toggleBookmark(this)">
-                            <i class="far fa-bookmark"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

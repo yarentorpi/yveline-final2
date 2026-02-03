@@ -487,16 +487,18 @@ body {
 .article-card {
     width: 100%;
     max-width: 1116px;
-    height: 552px;
+    height: auto;
     background: #FFFFFF;
     position: relative;
     display: flex;
+    flex-direction: row;
 }
 
 .article-image {
     width: 545px;
     height: 552px;
     flex-shrink: 0;
+    position: relative;
 }
 
 .article-image img {
@@ -505,10 +507,15 @@ body {
     object-fit: cover;
 }
 
+/* Icons positioned on top of image */
 .article-content {
     flex: 1;
-    padding: 228px 15px 0 25px;
+    padding: 0;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .article-icons {
@@ -517,6 +524,58 @@ body {
     right: 32px;
     display: flex;
     gap: 16px;
+    z-index: 10;
+}
+
+.article-text {
+    padding: 0 80px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+}
+
+.category-badge {
+    font-family: 'League Spartan';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #535252;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.article-text h3 {
+    font-family: 'League Spartan';
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000000;
+    margin: 0 0 16px 0;
+    max-width: 100%;
+}
+
+.article-text p {
+    font-family: 'League Spartan';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.00255em;
+    color: #000000;
+    margin: 0 0 24px 0;
+    max-width: 100%;
+}
+
+/* Remove the conflicting rule that was putting icons on image */
+.article-card .article-icons {
+    /* This rule is handled by .article-icons above */
+}
+
+.article-image .article-icons {
+    /* Remove this - icons should NOT be on image */
+    display: none;
 }
 
 .icon-btn {
@@ -556,32 +615,6 @@ body {
 
 .icon-btn.bookmark-btn.active i {
     color: #000000;
-}
-
-
-.article-text {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.article-text h3 {
-    font-family: 'League Spartan';
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 32px;
-    color: #000000;
-    max-width: 531px;
-}
-
-.article-text p {
-    font-family: 'League Spartan';
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: 0.00255em;
-    color: #000000;
-    max-width: 531px;
 }
 
 .read-more-btn {
