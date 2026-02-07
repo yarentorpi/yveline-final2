@@ -45,7 +45,7 @@ function renderHomepageArticles(articles) {
 // Create article card HTML
 function createArticleCard(article) {
     return `
-        <div class="article-card">
+        <div class="article-card" data-article-id="${article.id}">
             <div class="article-image">
                 <img src="${article.image}" alt="${article.title}">
             </div>
@@ -76,15 +76,21 @@ function createArticleCard(article) {
 function toggleLike(button) {
     button.classList.toggle('active');
     const icon = button.querySelector('i');
+    const article = button.closest('.article-card');
+    const articleId = parseInt(article.dataset.articleId);
     
     if (button.classList.contains('active')) {
         icon.classList.remove('far');
         icon.classList.add('fas');
-        saveLikeState(button, true);
+        if (typeof saveLikedArticle === 'function') {
+            saveLikedArticle(articleId);
+        }
     } else {
         icon.classList.remove('fas');
         icon.classList.add('far');
-        saveLikeState(button, false);
+        if (typeof removeLikedArticle === 'function') {
+            removeLikedArticle(articleId);
+        }
     }
 }
 
@@ -92,15 +98,21 @@ function toggleLike(button) {
 function toggleBookmark(button) {
     button.classList.toggle('active');
     const icon = button.querySelector('i');
+    const article = button.closest('.article-card');
+    const articleId = parseInt(article.dataset.articleId);
     
     if (button.classList.contains('active')) {
         icon.classList.remove('far');
         icon.classList.add('fas');
-        saveBookmarkState(button, true);
+        if (typeof saveBookmarkedArticle === 'function') {
+            saveBookmarkedArticle(articleId);
+        }
     } else {
         icon.classList.remove('fas');
         icon.classList.add('far');
-        saveBookmarkState(button, false);
+        if (typeof removeBookmarkedArticle === 'function') {
+            removeBookmarkedArticle(articleId);
+        }
     }
 }
 

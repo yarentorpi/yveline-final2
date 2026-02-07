@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Yveline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&family=GFS+Didot&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="profile-page-body">
+    <!-- Header -->
+    <div class="profile-simple-header">
+        <button class="back-arrow" onclick="window.location.href='index.html'">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="profile-simple-logo">
+            <div class="logo-text">Yveline</div>
+            <div class="logo-subtitle">Naturally You</div>
+        </div>
+        <button class="settings-icon">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
+
+    <!-- Profile Avatar & Name -->
+    <div class="profile-main-section">
+        <div class="profile-avatar-large">
+            <img src="https://via.placeholder.com/120" alt="Profile" id="profile-avatar-img">
+        </div>
+        <h2 class="profile-username" id="profile-username">Lindsey Anneal</h2>
+    </div>
+
+    <!-- Menu Items - First View -->
+    <div id="main-menu" class="profile-menu-container">
+        <button class="profile-menu-item" onclick="showSection('likes')">
+            <i class="fas fa-heart"></i>
+            <span>Beğenilerim</span>
+        </button>
+        <button class="profile-menu-item" onclick="showSection('bookmarks')">
+            <i class="fas fa-bookmark"></i>
+            <span>Kaydettiklerim</span>
+        </button>
+    </div>
+
+    <!-- Settings Menu - Second View -->
+    <div id="settings-menu" class="profile-menu-container" style="display: none;">
+        <a href="edit-profile.html" class="profile-menu-item">
+            <span>Profili Düzenle</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <!-- Beğenilerim Section -->
+    <div id="likes-section" class="content-detail-section" style="display: none;">
+        <div class="section-header">
+            <button class="back-arrow" onclick="showSection('main')">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div style="width: 40px;"></div>
+        </div>
+        
+        <div class="profile-avatar-small">
+            <img src="https://via.placeholder.com/60" alt="Profile">
+            <span id="likes-username">Lindsey Anneal</span>
+        </div>
+
+        <h3 class="section-title">Beğenilerim</h3>
+        <div class="content-list" id="likes-list">
+            <!-- Dynamically loaded -->
+        </div>
+    </div>
+
+    <!-- Kaydettiklerim Section -->
+    <div id="bookmarks-section" class="content-detail-section" style="display: none;">
+        <div class="section-header">
+            <button class="back-arrow" onclick="showSection('main')">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div style="width: 40px;"></div>
+        </div>
+        
+        <div class="profile-avatar-small">
+            <img src="https://via.placeholder.com/60" alt="Profile">
+            <span id="bookmarks-username">Lindsey Anneal</span>
+        </div>
+
+        <h3 class="section-title">Kaydettiklerim</h3>
+        <div class="content-list" id="bookmarks-list">
+            <!-- Dynamically loaded -->
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

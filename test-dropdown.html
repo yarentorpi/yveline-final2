@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dropdown Test - Yveline</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            position: relative;
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .navbar-right {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+        .login-icon {
+            cursor: pointer;
+            font-size: 24px;
+            padding: 10px;
+        }
+        .login-icon:hover {
+            opacity: 0.7;
+        }
+        .user-dropdown {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1001;
+            overflow: hidden;
+        }
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: #000;
+            text-decoration: none;
+        }
+        .dropdown-item:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="navbar-right">
+            <div class="login-icon" id="user-menu-trigger">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-dropdown" id="user-dropdown" style="display: none;">
+        <a href="login.html" class="dropdown-item">Giriş Yap</a>
+        <a href="login.html?mode=register" class="dropdown-item">Kaydol</a>
+    </div>
+
+    <div style="padding: 40px;">
+        <h1>Dropdown Test Sayfası</h1>
+        <p>Sağ üstteki kullanıcı ikonuna tıklayın.</p>
+        <p>Dropdown menü görünmeli.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userMenuTrigger = document.getElementById('user-menu-trigger');
+            const userDropdown = document.getElementById('user-dropdown');
+            
+            console.log('User menu trigger:', userMenuTrigger);
+            console.log('User dropdown:', userDropdown);
+            
+            if (userMenuTrigger && userDropdown) {
+                userMenuTrigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('User icon clicked!');
+                    const isVisible = userDropdown.style.display === 'block';
+                    userDropdown.style.display = isVisible ? 'none' : 'block';
+                    console.log('Dropdown display:', userDropdown.style.display);
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!userMenuTrigger.contains(e.target) && !userDropdown.contains(e.target)) {
+                        userDropdown.style.display = 'none';
+                    }
+                });
+                
+                console.log('Event listener added successfully!');
+            } else {
+                console.error('User menu elements not found!');
+            }
+        });
+    </script>
+</body>
+</html>

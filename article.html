@@ -43,18 +43,24 @@
                 </a>
             </div>
 
-            <!-- Right Navigation -->
+            <!-- Right Navigation - Updated to match homepage -->
             <div class="navbar-right">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Arama">
                 </div>
-                <div class="login-icon">
+                <div class="login-icon" id="user-menu-trigger">
                     <i class="fas fa-user"></i>
                 </div>
             </div>
         </nav>
     </header>
+
+    <!-- User Dropdown Menu -->
+    <div class="user-dropdown" id="user-dropdown" style="display: none;">
+        <a href="login.html" class="dropdown-item">Giriş Yap</a>
+        <a href="login.html?mode=register" class="dropdown-item">Kaydol</a>
+    </div>
 
     <!-- Mega Menus -->
     <div class="mega-menu mega-menu-1" id="mega-menu-1" style="display: none;">
@@ -106,5 +112,6 @@
 
     <script src="script.js"></script>
     <script src="article-script.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>

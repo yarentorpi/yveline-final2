@@ -269,19 +269,4 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Load featured articles in mega menu
     loadMegaMenuFeatured();
-    
-    // Add search functionality
-    const searchInput = document.querySelector('.search-box input');
-    
-    if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm) {
-                    // Redirect to home page with search query
-                    window.location.href = `index.html?search=${encodeURIComponent(searchTerm)}`;
-                }
-            }
-        });
-    }
 });

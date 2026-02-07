@@ -499,4 +499,104 @@ document.addEventListener('DOMContentLoaded', function() {
     setupCharCounters();
     updateSERPPreview();
     calculateSEOScore();
+    loadUsers(); // Load registered users
 });
+
+// ==================== USER MANAGEMENT ====================
+
+// Load and display registered users
+function loadUsers() {
+    const usersListElement = document.getElementById('users-list');
+    if (!usersListElement) return;
+    
+    // Get all registered users from localStorage
+    const users = getAllUsers();
+    
+    if (users.length === 0) {
+        usersListElement.innerHTML = '<p style="color: #666; text-align: center; padding: 40px;">Henüz kayıtlı kullanıcı yok.</p>';
+        return;
+    }
+    
+    usersListElement.innerHTML = users.map((user, index) => `
+        <div class="user-item" style="padding: 15px; background: #f9f9f9; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <strong style="font-size: 16px; color: #333;">${user.username}</strong>
+                ${user.email ? `<br><span style="font-size: 14px; color: #666;">${user.email}</span>` : ''}
+                <br><span style="font-size: 12px; color: #999;">Kayıt: ${formatDate(user.registrationDate || user.loginDate)}</span>
+            </div>
+            <button class="btn btn-small btn-danger" onclick="deleteUser('${user.username}')" style="padding: 6px 12px; font-size: 12px;">
+                <i class="fas fa-trash"></i> Sil
+            </button>
+        </div>
+    `).join('');
+    
+    // Update user count
+    const userCountElement = document.getElementById('user-count');
+    if (userCountElement) {
+        userCountElement.textContent = users.length;
+    }
+}
+
+// Get all users from localStorage
+function getAllUsers() {
+    const users = [];
+    
+    // Check for single user (old format)
+    const currentUser = localStorage.getItem('yveline-user');
+    if (currentUser) {
+        try {
+            const user = JSON.parse(currentUser);
+            users.push(user);
+        } catch(e) {
+            console.error('Error parsing user:', e);
+        }
+    }
+    
+    // Check for multiple users list
+    const usersList = localStorage.getItem('yveline-users-list');
+    if (usersList) {
+        try {
+            const allUsers = JSON.parse(usersList);
+            return allUsers;
+        } catch(e) {
+            console.error('Error parsing users list:', e);
+        }
+    }
+    
+    return users;
+}
+
+// Delete user
+function deleteUser(username) {
+    if (!confirm(`${username} kullanıcısını silmek istediğinizden emin misiniz?`)) return;
+    
+    let usersList = getAllUsers();
+    usersList = usersList.filter(u => u.username !== username);
+    
+    localStorage.setItem('yveline-users-list', JSON.stringify(usersList));
+    
+    // If deleted user is the current user, log them out
+    const currentUser = localStorage.getItem('yveline-user');
+    if (currentUser) {
+        const user = JSON.parse(currentUser);
+        if (user.username === username) {
+            localStorage.removeItem('yveline-user');
+        }
+    }
+    
+    loadUsers();
+    showAlert('success', 'Kullanıcı silindi!');
+}
+
+// Format date
+function formatDate(dateString) {
+    if (!dateString) return 'Bilinmiyor';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('tr-TR', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}

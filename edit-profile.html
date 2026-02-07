@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profili Düzenle - Yveline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700&family=GFS+Didot&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="profile-page-body">
+    <!-- Header -->
+    <div class="profile-simple-header">
+        <button class="back-arrow" onclick="window.location.href='profile.html'">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="profile-simple-logo">
+            <div class="logo-text">Yveline</div>
+            <div class="logo-subtitle">Naturally You</div>
+        </div>
+        <div style="width: 40px;"></div>
+    </div>
+
+    <!-- Edit Profile Content -->
+    <div class="edit-profile-container">
+        <h2 class="edit-profile-title">Profili Düzenle</h2>
+
+        <!-- Avatar Section -->
+        <div class="edit-avatar-section">
+            <div class="edit-avatar-wrapper">
+                <img src="https://via.placeholder.com/120" alt="Profile" id="edit-avatar-preview">
+                <button class="edit-avatar-button" onclick="document.getElementById('avatar-input').click()">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="handleAvatarChange(event)">
+            </div>
+            <p class="edit-avatar-hint">Profil fotoğrafınızı değiştirmek için tıklayın</p>
+        </div>
+
+        <!-- Edit Form -->
+        <form id="edit-profile-form" onsubmit="handleProfileUpdate(event)">
+            <div class="edit-form-group">
+                <label class="edit-form-label">Kullanıcı Adı</label>
+                <input type="text" id="edit-username" class="edit-form-input" placeholder="Kullanıcı adınız" required>
+            </div>
+
+            <div class="edit-form-group">
+                <label class="edit-form-label">E-posta</label>
+                <input type="email" id="edit-email" class="edit-form-input" placeholder="E-posta adresiniz">
+            </div>
+
+            <div class="edit-form-group">
+                <label class="edit-form-label">Biyografi</label>
+                <textarea id="edit-bio" class="edit-form-textarea" rows="4" placeholder="Kendiniz hakkında birkaç kelime..."></textarea>
+                <span class="char-counter" id="bio-counter">0/150</span>
+            </div>
+
+            <div class="edit-form-group">
+                <label class="edit-form-label">Şifre Değiştir (isteğe bağlı)</label>
+                <input type="password" id="edit-new-password" class="edit-form-input" placeholder="Yeni şifre">
+            </div>
+
+            <div class="edit-form-group">
+                <label class="edit-form-label">Şifre Tekrar</label>
+                <input type="password" id="edit-confirm-password" class="edit-form-input" placeholder="Yeni şifre tekrar">
+            </div>
+
+            <div class="edit-form-actions">
+                <button type="submit" class="edit-save-button">
+                    <i class="fas fa-save"></i> Kaydet
+                </button>
+                <button type="button" class="edit-cancel-button" onclick="window.location.href='profile.html'">
+                    İptal
+                </button>
+            </div>
+        </form>
+
+        <!-- Danger Zone -->
+        <div class="danger-zone">
+            <h3 class="danger-zone-title">Tehlikeli Bölge</h3>
+            <button class="danger-button" onclick="handleAccountDelete()">
+                <i class="fas fa-trash-alt"></i> Hesabı Sil
+            </button>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        // Load current user data
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if logged in
+            if (!isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = getCurrentUser();
+            if (user) {
+                document.getElementById('edit-username').value = user.username || '';
+                document.getElementById('edit-email').value = user.email || '';
+                document.getElementById('edit-bio').value = user.bio || '';
+                
+                // Load avatar if exists
+                if (user.avatar) {
+                    document.getElementById('edit-avatar-preview').src = user.avatar;
+                }
+                
+                // Update bio counter
+                updateBioCounter();
+            }
+
+            // Bio counter
+            document.getElementById('edit-bio').addEventListener('input', updateBioCounter);
+        });
+
+        function updateBioCounter() {
+            const bioInput = document.getElementById('edit-bio');
+            const counter = document.getElementById('bio-counter');
+            const length = bioInput.value.length;
+            counter.textContent = `${length}/150`;
+            
+            if (length > 150) {
+                bioInput.value = bioInput.value.substring(0, 150);
+                counter.textContent = '150/150';
+            }
+        }
+
+        function handleAvatarChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('edit-avatar-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleProfileUpdate(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('edit-username').value;
+            const email = document.getElementById('edit-email').value;
+            const bio = document.getElementById('edit-bio').value;
+            const newPassword = document.getElementById('edit-new-password').value;
+            const confirmPassword = document.getElementById('edit-confirm-password').value;
+            const avatar = document.getElementById('edit-avatar-preview').src;
+
+            // Validate passwords match
+            if (newPassword && newPassword !== confirmPassword) {
+                alert('Şifreler eşleşmiyor!');
+                return;
+            }
+
+            // Get current user
+            const user = getCurrentUser();
+            
+            // Update user data
+            const updatedUser = {
+                ...user,
+                username: username,
+                email: email,
+                bio: bio,
+                avatar: avatar,
+                updatedAt: new Date().toISOString()
+            };
+
+            // Save to localStorage
+            localStorage.setItem('yveline-user', JSON.stringify(updatedUser));
+
+            // Update in users list
+            let usersList = [];
+            const existingList = localStorage.getItem('yveline-users-list');
+            if (existingList) {
+                try {
+                    usersList = JSON.parse(existingList);
+                    const userIndex = usersList.findIndex(u => u.username === user.username);
+                    if (userIndex !== -1) {
+                        usersList[userIndex] = updatedUser;
+                        localStorage.setItem('yveline-users-list', JSON.stringify(usersList));
+                    }
+                } catch(e) {
+                    console.error('Error updating users list:', e);
+                }
+            }
+
+            alert('Profil güncellendi!');
+            window.location.href = 'profile.html';
+        }
+
+        function handleAccountDelete() {
+            if (!confirm('Hesabınızı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!')) {
+                return;
+            }
+
+            if (!confirm('Son kez soruyoruz: Tüm verileriniz silinecek. Devam etmek istiyor musunuz?')) {
+                return;
+            }
+
+            const user = getCurrentUser();
+            
+            // Remove from users list
+            let usersList = [];
+            const existingList = localStorage.getItem('yveline-users-list');
+            if (existingList) {
+                try {
+                    usersList = JSON.parse(existingList);
+                    usersList = usersList.filter(u => u.username !== user.username);
+                    localStorage.setItem('yveline-users-list', JSON.stringify(usersList));
+                } catch(e) {
+                    console.error('Error:', e);
+                }
+            }
+
+            // Remove current user
+            localStorage.removeItem('yveline-user');
+
+            alert('Hesabınız silindi.');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
